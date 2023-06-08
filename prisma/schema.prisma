@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  userId    String
+  password  String
+  schedules Schedule[]
+
+  @@map(name: "MB_USER")
+}
+
+model Calendar {
+  id        Int        @id @default(autoincrement())
+  month     String
+  schedules Schedule[]
+
+  @@map(name: "MB_CALENDAR")
+}
+
+model Schedule {
+  id         Int      @id @default(autoincrement())
+  calendar   Calendar @relation(fields: [calenderId], references: [id])
+  calenderId Int
+  users      User[]
+  title      String
+  day        DateTime
+  startTime  DateTime
+  endTime    DateTime
+
+  @@map(name: "MB_SCHEDULE")
+}
