@@ -34,3 +34,13 @@ type Query {
   findAllMemberUser: [User!]!
   findAllCalenderWithSchedule: [Calendar!]!
 }
+
+type Mutation {
+  signUpMemberUser: String!
+  loginMemberUser(loginMemberUserInput: LoginMemberUserInput!): String!
+}
+
+input LoginMemberUserInput {
+  userId: String!
+  password: String!
+}
