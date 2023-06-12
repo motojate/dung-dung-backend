@@ -30,6 +30,9 @@ export class WeightedRandomService {
       const characters = await this.prisma.character.findMany({
         where: {
           grade: grade
+        },
+        include: {
+          users: true
         }
       })
       const randomIndex = Math.floor(Math.random() * characters.length)

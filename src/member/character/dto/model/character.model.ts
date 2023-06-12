@@ -17,5 +17,5 @@ export class Character {
   readonly grade: Grade
 
   @Field(() => [User])
-  readonly users: User
+  readonly users: User[]
 }
