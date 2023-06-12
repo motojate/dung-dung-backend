@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql'
 import { Grade } from '@prisma/client'
+import { User } from 'src/member/user/model/user.model'
 
 @ObjectType()
 export class Character {
@@ -14,4 +15,7 @@ export class Character {
 
   @Field(() => Grade)
   readonly grade: Grade
+
+  @Field(() => [User])
+  readonly users: User
 }
