@@ -12,6 +12,8 @@ import { createLogger } from 'winston'
 import { AuthModule } from './auth/auth.module'
 import * as winstonDaily from 'winston-daily-rotate-file'
 import { ConfigModule } from '@nestjs/config'
+import { WeightedRandomModule } from './weighted-random/weighted-random.module'
+import { CharacterModule } from './member/character/character.module'
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -104,7 +106,9 @@ import { ConfigModule } from '@nestjs/config'
     CalenderModule,
     ScheduleModule,
     AuthModule,
-    ConfigModule.forRoot()
+    ConfigModule.forRoot(),
+    WeightedRandomModule,
+    CharacterModule
   ],
   providers: [AppService]
 })

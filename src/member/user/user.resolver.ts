@@ -1,10 +1,11 @@
-import { Resolver, Query, Mutation } from '@nestjs/graphql'
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 import { UserService } from './user.service'
 import { User } from './model/user.model'
+import { SignUpMemberUserInput } from './dto/user.input'
 
 @Resolver()
 export class UserResolver {
-  constructor(private userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   @Query(() => [User])
   async findAllMemberUser(): Promise<User[]> {
@@ -12,7 +13,7 @@ export class UserResolver {
   }
 
   @Mutation(() => String)
-  async signUpMemberUser(): Promise<string> {
-    return await this.userService.signUpMemberUser()
+  async signUpMemberUser(@Args('signUpMemberUserInput') signUpMemberUserInput: SignUpMemberUserInput): Promise<string> {
+    return await this.userService.signUpMemberUser(signUpMemberUserInput)
   }
 }

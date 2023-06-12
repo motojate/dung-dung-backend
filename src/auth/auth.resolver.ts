@@ -10,7 +10,6 @@ export class AuthResolver {
   async loginMemberUser(@Args('loginMemberUserInput') loginMemberUserInput: LoginMemberUserInput): Promise<string> {
     const user = await this.authService.validateUser(loginMemberUserInput)
     const token: string = await this.authService.createToken(user)
-    console.log(token)
     return token
   }
 }

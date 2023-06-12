@@ -10,11 +10,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Grade {
+  SSR
+  S
+  A
+  B
+  C
+}
+
 model User {
-  id        Int        @id @default(autoincrement())
-  userId    String     @unique
-  password  String
-  schedules Schedule[]
+  id         Int         @id @default(autoincrement())
+  userId     String      @unique
+  password   String
+  schedules  Schedule[]
+  Characters Character[]
 
   @@map(name: "MB_USER")
 }
@@ -38,4 +47,15 @@ model Schedule {
   endTime    DateTime
 
   @@map(name: "MB_SCHEDULE")
+}
+
+model Character {
+  id     Int    @id @default(autoincrement())
+  users  User[]
+  grade  Grade
+  name   String
+  season String
+
+  @@unique(fields: [name, season], name: "seasonName")
+  @@map(name: "GM_CHARACTER")
 }
