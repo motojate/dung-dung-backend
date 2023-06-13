@@ -8,7 +8,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 export class WeightedRandomResolver {
   constructor(private readonly weightedRandomService: WeightedRandomService) {}
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Query(() => Character)
   async selectCharacter(): Promise<Character> {
     return this.weightedRandomService.selectCharacter()
