@@ -13,4 +13,8 @@ export class CalenderService {
       }
     })
   }
+
+  async test() {
+    console.log('test')
+  }
 }
