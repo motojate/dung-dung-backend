@@ -17,4 +17,8 @@ export class CalenderService {
   async test() {
     console.log('test')
   }
+
+  async createTodoSchedule() {
+    return this.prisma.calendar.findMany()
+  }
 }
