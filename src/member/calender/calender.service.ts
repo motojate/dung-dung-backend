@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { Calendar } from './model/calendar.model'
+import { CalendarFilterInput } from './dto/calendar-filter.input'
 
 @Injectable()
 export class CalenderService {
@@ -14,11 +15,14 @@ export class CalenderService {
     })
   }
 
-  async test() {
-    console.log('test')
-  }
-
-  async createTodoSchedule() {
-    return this.prisma.calendar.findMany()
+  async findCustomMonthCalenderWithSchedule(dto: CalendarFilterInput): Promise<Calendar[]> {
+    return this.prisma.calendar.findMany({
+      where: {
+        month: { in: dto.month }
+      },
+      include: {
+        schedules: true
+      }
+    })
   }
 }
