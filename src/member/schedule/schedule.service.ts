@@ -16,4 +16,18 @@ export class ScheduleService {
       }
     })
   }
+
+  async findByScheduleFromUser(user) {
+    const result = await this.prisma.schedule.findMany({
+      include: {
+        users: {
+          where: {
+            id: user.id
+          }
+        }
+      }
+    })
+    console.log(result)
+    return result
+  }
 }
