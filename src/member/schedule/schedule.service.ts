@@ -11,7 +11,8 @@ export class ScheduleService {
         startTime: new Date(),
         endTime: new Date(),
         title: 'test',
-        day: new Date()
+        day: new Date(),
+        calenderId: 1
       }
     })
   }

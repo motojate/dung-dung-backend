@@ -9,17 +9,31 @@ export class JwtAuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const gqlContext = GqlExecutionContext.create(context)
     const request = gqlContext.getContext().req
-    const token = request.headers.authorization?.split(' ')[1] // Authorization 헤더에서 토큰 추출
+    const authorizationHeader = request.headers.authorization
 
-    if (token) {
-      try {
-        const decoded = this.jwtService.verify(token) // 토큰 유효성 검사
-        request.user = decoded // 유효한 토큰의 내용을 요청 객체에 저장
-        return true
-      } catch (e) {
-        throw new UnauthorizedException('Invalid token')
+    if (authorizationHeader) {
+      const [bearer, token] = authorizationHeader.split(' ')
+
+      if (bearer === 'Bearer' && token) {
+        try {
+          const decoded = this.jwtService.verify(token)
+          request.user = decoded
+          return true
+        } catch (e) {
+          throw new UnauthorizedException('Invalid token')
+        }
       }
     }
+
+    // if (token) {
+    //   try {
+    //     const decoded = this.jwtService.verify(token) // 토큰 유효성 검사
+    //     request.user = decoded // 유효한 토큰의 내용을 요청 객체에 저장
+    //     return true
+    //   } catch (e) {
+    //     throw new UnauthorizedException('Invalid token')
+    //   }
+    // }
 
     throw new UnauthorizedException('Token not provided')
   }
