@@ -1,5 +1,5 @@
 import { UseGuards } from '@nestjs/common'
-import { Args, Query, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { AuthUser } from 'src/auth/user-decorate'
 import { ScheduleService } from './schedule.service'
@@ -19,7 +19,7 @@ export class ScheduleResolver {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Query(() => Boolean)
+  @Mutation(() => Boolean)
   async createScheduleFromUser(@AuthUser() authUser: AuthUserInput, @Args('createScheduleInput') createScheduleInput: CreateScheduleInput): Promise<boolean> {
     createScheduleInput.userId = authUser.id
     return this.scheduleService.createScheduleFromUser(createScheduleInput)
