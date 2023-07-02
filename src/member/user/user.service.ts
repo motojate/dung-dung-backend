@@ -8,7 +8,7 @@ import { SignUpMemberUserInput } from './dto/user.input'
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService, @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
+  constructor(private readonly prisma: PrismaService, @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
 
   async findAllMemberUser(): Promise<User[]> {
     return await this.prisma.user.findMany({
