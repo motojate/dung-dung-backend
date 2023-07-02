@@ -24,4 +24,7 @@ export class Schedule {
 
   @Field(() => Calendar, { nullable: true })
   readonly calendar?: Calendar
+
+  @Field(() => Boolean, { defaultValue: false })
+  readonly isSpecial: boolean
 }

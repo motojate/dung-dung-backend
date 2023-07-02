@@ -45,7 +45,7 @@ model Schedule {
   day        DateTime
   startTime  DateTime
   endTime    DateTime
-  isSpecial  Boolean?
+  isSpecial  Boolean  @default(false)
 
   @@map(name: "MB_SCHEDULE")
 }

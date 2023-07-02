@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
+import { Schedule } from './model/schedule.model'
 
 @Injectable()
 export class ScheduleService {
@@ -17,17 +18,18 @@ export class ScheduleService {
     })
   }
 
-  async findByScheduleFromUser(user) {
-    const result = await this.prisma.schedule.findMany({
+  async findByScheduleFromUserAndMonth(userId: number, month: number): Promise<Schedule[]> {
+    return await this.prisma.schedule.findMany({
+      where: {
+        calenderId: month
+      },
       include: {
         users: {
           where: {
-            id: user.id
+            id: userId
           }
         }
       }
     })
-    console.log(result)
-    return result
   }
 }
