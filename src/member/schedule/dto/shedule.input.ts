@@ -17,6 +17,9 @@ export class CreateScheduleInput {
   @Field(() => Number)
   readonly month: number
 
+  @Field(() => Boolean, { defaultValue: false })
+  readonly isSpecial: boolean
+
   @Field(() => Number, { nullable: true })
   userId?: number
 }

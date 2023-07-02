@@ -18,6 +18,7 @@ export class ScheduleService {
           title: dto.title,
           day: dto.day,
           calenderId: dto.month,
+          isSpecial: dto.isSpecial,
           users: {
             connect: {
               id: dto.userId
