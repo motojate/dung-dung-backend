@@ -3,12 +3,13 @@ import { PrismaService } from 'src/prisma/prisma.service'
 import { Schedule } from './model/schedule.model'
 import { Logger } from 'winston'
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston'
+import { CreateScheduleInput } from './dto/shedule.input'
 
 @Injectable()
 export class ScheduleService {
   constructor(private readonly prisma: PrismaService, @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
 
-  async createScheduleFromUser(dto: any): Promise<boolean> {
+  async createScheduleFromUser(dto: CreateScheduleInput): Promise<boolean> {
     try {
       await this.prisma.schedule.create({
         data: {
@@ -19,7 +20,7 @@ export class ScheduleService {
           calenderId: dto.month,
           users: {
             connect: {
-              id: dto.userIdㄱ
+              id: dto.userId
             }
           }
         }
