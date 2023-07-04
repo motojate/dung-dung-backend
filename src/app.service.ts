@@ -2,9 +2,12 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AppService {
-  constructor() {}
+  constructor() {
+    //
+  }
 
   create(): void
   update(): void
-  findAll(): any
+  findAll(): any[]
+  findUnique(): any
 }
