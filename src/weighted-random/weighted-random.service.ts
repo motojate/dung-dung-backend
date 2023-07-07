@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { CumulativeDistributionTree } from './dto/weighted-random'
 import { Character } from 'src/member/character/dto/model/character.model'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { PrismaService } from 'src/shared/prisma/prisma.service'
 import { Grade } from '@prisma/client'
 
 @Injectable()

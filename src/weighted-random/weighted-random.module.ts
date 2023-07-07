@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { WeightedRandomResolver } from './weighted-random.resolver'
 import { WeightedRandomService } from './weighted-random.service'
-import { PrismaModule } from 'src/prisma/prisma.module'
+import { PrismaModule } from 'src/shared/prisma/prisma.module'
 
 @Module({
   providers: [WeightedRandomResolver, WeightedRandomService],

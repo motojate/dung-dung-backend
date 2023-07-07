@@ -1,9 +1,9 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
-import { AuthUser } from 'src/auth/user-decorate'
+import { JwtAuthGuard } from 'src/shared/guards/jwt-auth.guard'
+import { AuthUser } from 'src/shared/decorators/user-decorate'
 import { ScheduleService } from './schedule.service'
-import { AuthUserInput } from 'src/auth/dto/auth-user.input'
+import { AuthUserInput } from 'src/shared/auth/dto/auth-user.input'
 import { Schedule } from './model/schedule.model'
 import { CreateScheduleInput } from './dto/shedule.input'
 
