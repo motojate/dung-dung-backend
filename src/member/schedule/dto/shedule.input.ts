@@ -23,3 +23,15 @@ export class CreateScheduleInput {
   @Field(() => Number, { nullable: true })
   userId?: number
 }
+
+@InputType()
+export class FindScheduleFilter {
+  @Field(() => Number)
+  readonly userId: number
+
+  @Field(() => Number)
+  readonly month: number
+
+  @Field(() => Boolean, { nullable: true })
+  readonly isSpecial?: boolean
+}

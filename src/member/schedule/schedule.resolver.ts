@@ -5,7 +5,7 @@ import { AuthUser } from 'src/shared/decorators/user-decorate'
 import { ScheduleService } from './schedule.service'
 import { AuthUserInput } from 'src/shared/auth/dto/auth-user.input'
 import { Schedule } from './model/schedule.model'
-import { CreateScheduleInput } from './dto/shedule.input'
+import { CreateScheduleInput, FindScheduleFilter } from './dto/shedule.input'
 
 @Resolver()
 export class ScheduleResolver {
@@ -14,8 +14,11 @@ export class ScheduleResolver {
   @UseGuards(JwtAuthGuard)
   @Query(() => [Schedule])
   async findByScheduleFromUserAndMonth(@AuthUser() authUser: AuthUserInput, @Args('month') month: number): Promise<Schedule[]> {
-    const userId = authUser.id
-    return this.scheduleService.findByScheduleFromUserAndMonth(userId, month)
+    const dto: FindScheduleFilter = {
+      userId: authUser.id,
+      month: month
+    }
+    return this.scheduleService.findByFilter(dto)
   }
 
   @UseGuards(JwtAuthGuard)

@@ -3,7 +3,7 @@ import { PrismaService } from 'src/shared/prisma/prisma.service'
 import { Schedule } from './model/schedule.model'
 import { Logger } from 'winston'
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston'
-import { CreateScheduleInput } from './dto/shedule.input'
+import { CreateScheduleInput, FindScheduleFilter } from './dto/shedule.input'
 import { CrudService } from 'src/shared/interfaces/factory.interface'
 @Injectable()
 export class ScheduleService implements CrudService<Schedule> {
@@ -102,16 +102,16 @@ export class ScheduleService implements CrudService<Schedule> {
     }
   }
 
-  async findByScheduleFromUserAndMonth(userId: number, month: number): Promise<Schedule[]> {
+  async findByFilter(dto: FindScheduleFilter): Promise<Schedule[]> {
     try {
       return await this.prisma.schedule.findMany({
         where: {
-          calenderId: month
+          calenderId: dto.month
         },
         include: {
           users: {
             where: {
-              id: userId
+              id: dto.userId
             }
           }
         }
