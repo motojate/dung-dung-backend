@@ -6,7 +6,7 @@ import { WINSTON_MODULE_PROVIDER } from 'nest-winston'
 import { CreateScheduleInput } from './dto/shedule.input'
 import { BasedFactoryInterface } from 'src/shared/interfaces/factory.interface'
 @Injectable()
-export class ScheduleService implements BasedFactoryInterface<Schedule> {
+export class ScheduleService implements BasedFactoryInterface<Schedule, MyDto> {
   constructor(private readonly prisma: PrismaService, @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
 
   async findAll(): Promise<Schedule[]> {
