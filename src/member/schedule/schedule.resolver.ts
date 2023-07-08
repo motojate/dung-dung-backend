@@ -22,6 +22,6 @@ export class ScheduleResolver {
   @Mutation(() => Boolean)
   async createScheduleFromUser(@AuthUser() authUser: AuthUserInput, @Args('createScheduleInput') createScheduleInput: CreateScheduleInput): Promise<boolean> {
     createScheduleInput.userId = authUser.id
-    return this.scheduleService.createScheduleFromUser(createScheduleInput)
+    return this.scheduleService.create(createScheduleInput)
   }
 }
