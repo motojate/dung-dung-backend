@@ -2,18 +2,21 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 import { UserService } from './user.service'
 import { User } from './model/user.model'
 import { SignUpMemberUserInput } from './dto/user.input'
+import { UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from 'src/shared/guards/jwt-auth.guard'
 
 @Resolver()
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Query(() => [User])
   async findAllMemberUser(): Promise<User[]> {
-    return await this.userService.findAllMemberUser()
+    return await this.userService.findAll()
   }
 
-  @Mutation(() => String)
-  async signUpMemberUser(@Args('signUpMemberUserInput') signUpMemberUserInput: SignUpMemberUserInput): Promise<string> {
-    return await this.userService.signUpMemberUser(signUpMemberUserInput)
+  @Mutation(() => Boolean)
+  async signUpMemberUser(@Args('signUpMemberUserInput') signUpMemberUserInput: SignUpMemberUserInput): Promise<boolean> {
+    return await this.userService.create(signUpMemberUserInput)
   }
 }
