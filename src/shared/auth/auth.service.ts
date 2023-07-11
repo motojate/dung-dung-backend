@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { LoginMemberUserInput } from 'src/member/user/dto/user.input'
+import { FindMemberUserByUserId, LoginMemberUserInput } from 'src/member/user/dto/user.input'
 import { User } from 'src/member/user/model/user.model'
 import { UserService } from 'src/member/user/user.service'
 import * as bcrypt from 'bcrypt'
@@ -15,7 +15,10 @@ export class AuthService {
   }
 
   async validateUser(loginMemberUserInput: LoginMemberUserInput): Promise<User> {
-    const user = await this.userService.findUnique(loginMemberUserInput.userId)
+    const dto: FindMemberUserByUserId = {
+      userId: loginMemberUserInput.userId
+    }
+    const user = await this.userService.findUnique(dto)
     if (!user) {
       throw new UnauthorizedException('Invalid userId')
     }
