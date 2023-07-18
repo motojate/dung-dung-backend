@@ -15,7 +15,10 @@ export class AuthService {
   }
 
   async validateUser(loginMemberUserInput: LoginMemberUserInput): Promise<User> {
-    const user = await this.userService.findByUserIdMemberUser(loginMemberUserInput.userId)
+    const dto = {
+      userId: loginMemberUserInput.userId
+    }
+    const user = await this.userService.findUnique(dto)
     if (!user) {
       throw new UnauthorizedException('Invalid userId')
     }
