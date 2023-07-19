@@ -34,6 +34,7 @@ export class UserService implements CrudService<User> {
         }
       })
     } catch (e) {
+      const test = 'test'
       this.logger.error(e)
     }
   }
