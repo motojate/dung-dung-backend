@@ -9,8 +9,12 @@ import { Logger } from 'winston'
 @Injectable()
 export class CalenderService implements CrudService<Calendar> {
   constructor(private readonly prisma: PrismaService, @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
-  create(dto: Partial<Calendar>): Promise<boolean> {
-    throw new Error('Method not implemented.')
+  async create(dto: Partial<Calendar>): Promise<boolean> {
+    try {
+      return true
+    } catch (e) {
+      this.logger.error(e)
+    }
   }
   delete(dto: Partial<Calendar>): Promise<boolean> {
     throw new Error('Method not implemented.')
