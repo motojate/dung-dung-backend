@@ -4,6 +4,7 @@ import { User } from './model/user.model'
 import { SignUpMemberUserInput } from './dto/user.input'
 import { UseGuards } from '@nestjs/common'
 import { JwtAuthGuard } from 'src/shared/guards/jwt-auth.guard'
+import { BadWordsPipe } from 'src/shared/pipes/language-filter.pipe'
 
 @Resolver()
 export class UserResolver {
@@ -16,7 +17,7 @@ export class UserResolver {
   }
 
   @Mutation(() => Boolean)
-  async signUpMemberUser(@Args('signUpMemberUserInput') signUpMemberUserInput: SignUpMemberUserInput): Promise<boolean> {
+  async signUpMemberUser(@Args('signUpMemberUserInput', BadWordsPipe) signUpMemberUserInput: SignUpMemberUserInput): Promise<boolean> {
     return await this.userService.create(signUpMemberUserInput)
   }
 }
