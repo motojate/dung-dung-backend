@@ -18,11 +18,6 @@ enum Grade {
   C
 }
 
-model Animal {
-  id   Int    @id @default(autoincrement())
-  type String
-}
-
 model User {
   id         Int         @id @default(autoincrement())
   userId     String      @unique
@@ -65,35 +60,3 @@ model Character {
   @@unique(fields: [name, season], name: "seasonName")
   @@map(name: "GM_CHARACTER")
 }
-
-model PetOwner {
-  petOwnerId Int    @id @default(autoincrement()) @map("pet_owner_id")
-  type       String
-  userId     String @unique
-  image      String
-
-  follows Follow[]
-}
-
-model PetLover {
-  petLoverId Int    @id @default(autoincrement()) @map("pet_lover_id")
-  type       String
-  userId     String @unique
-
-  follows Follow[]
-}
-
-model Follow {
-  petOwnerId Int      @map("pet_owner_id")
-  petLoverId Int      @map("pet_lover_id")
-  petOwners  PetOwner @relation(fields: [petOwnerId], references: [petOwnerId])
-  petLovers  PetLover @relation(fields: [petLoverId], references: [petLoverId])
-  type       String
-
-  @@unique(fields: [petOwnerId, petLoverId], name: "followId")
-}
-
-// enum FollowType {
-//   FOLLOWING
-//   FOLLOWER
-// }
