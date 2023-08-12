@@ -64,7 +64,10 @@ model Character {
 
 model Code {
   id       Int    @id @default(autoincrement())
+  name     String
   parentId Int?   @map("parent_id")
   parent   Code?  @relation(name: "CodeParentAndChildren", fields: [parentId], references: [id])
   children Code[] @relation(name: "CodeParentAndChildren")
+
+  @@map(name: "GM_CODE")
 }
