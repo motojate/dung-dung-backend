@@ -71,3 +71,13 @@ model Code {
 
   @@map(name: "GM_CODE")
 }
+
+model Market {
+  id          Int    @id @default(autoincrement())
+  name        String
+  type        String
+  nameAddress String @map("name_address")
+  address     String
+
+  @@map(name: "GM_MARKET")
+}
