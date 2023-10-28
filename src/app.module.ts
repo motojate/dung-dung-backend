@@ -14,7 +14,8 @@ import * as winstonDaily from 'winston-daily-rotate-file'
 import { ConfigModule } from '@nestjs/config'
 import { WeightedRandomModule } from './weighted-random/weighted-random.module'
 import { CharacterModule } from './member/character/character.module'
-import { CodeModule } from './bo/code/code.module';
+import { CodeModule } from './bo/code/code.module'
+import { MarketModule } from './bo/market/market.module'
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -110,7 +111,8 @@ import { CodeModule } from './bo/code/code.module';
     ConfigModule.forRoot(),
     WeightedRandomModule,
     CharacterModule,
-    CodeModule
+    CodeModule,
+    MarketModule
   ],
   providers: [AppService]
 })
