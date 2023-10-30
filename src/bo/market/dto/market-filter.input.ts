@@ -1,6 +1,7 @@
 import { Field, InputType, registerEnumType } from '@nestjs/graphql'
 
 export enum AreaType {
+  ALL = '',
   SEOUL = '서울',
   GYEONGGI = '경기',
   INCHEON = '인천'
