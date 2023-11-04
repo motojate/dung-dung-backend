@@ -9,7 +9,14 @@ export class MarketService {
     try {
       return this.prisma.market.findMany({
         where: {
-          address: { contains: dto.toString() }
+          AND: [
+            {
+              address: { contains: dto.area.toString() }
+            },
+            {
+              address: { contains: dto.location.toString() }
+            }
+          ]
         }
       })
     } catch (e) {}
