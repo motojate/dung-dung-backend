@@ -44,6 +44,6 @@ export class MarketFilterInput {
   @Field(() => AreaType)
   readonly area: AreaType
 
-  @Field(() => LocationType)
+  @Field(() => LocationType, { nullable: true })
   readonly location?: LocationType
 }
