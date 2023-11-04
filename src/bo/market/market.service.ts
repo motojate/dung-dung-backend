@@ -6,9 +6,8 @@ import { MarketFilterInput } from './dto/market-filter.input'
 export class MarketService {
   constructor(private readonly prisma: PrismaService) {}
   async findByArea(dto: MarketFilterInput) {
-    try {
-      return this.prisma.market.findMany({
-        where: {
+    const whereCondition = dto.location
+      ? {
           AND: [
             {
               address: { contains: dto.area.toString() }
@@ -17,6 +16,15 @@ export class MarketService {
               address: { contains: dto.location.toString() }
             }
           ]
+        }
+      : {
+          address: { contains: dto.area.toString() }
+        }
+
+    try {
+      return this.prisma.market.findMany({
+        where: {
+          ...whereCondition
         }
       })
     } catch (e) {}
