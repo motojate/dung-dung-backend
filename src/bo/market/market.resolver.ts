@@ -9,6 +9,6 @@ export class MarketResolver {
 
   @Query(() => [Market])
   async getMarkets(@Args('marketFilterInput') marketFilterInput: MarketFilterInput) {
-    return this.marketService.findByArea(marketFilterInput.area)
+    return this.marketService.findByArea(marketFilterInput)
   }
 }
