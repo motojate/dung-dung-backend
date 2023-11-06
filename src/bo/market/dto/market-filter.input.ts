@@ -7,7 +7,6 @@ export enum AreaType {
   INCHEON = '인천'
 }
 export enum LocationType {
-  // SEOUL
   GWANGJIN = '광진구',
   JONGNO = '종로구',
   JUNG = '중구',
@@ -34,7 +33,6 @@ export enum LocationType {
   SONGPA = '송파구',
   GANGDONG = '강동구',
 
-  // GYEONGGI
   GOYANG = '고양시',
   SUWON = '수원시',
   YONGIN = '용인시'
