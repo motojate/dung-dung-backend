@@ -33,4 +33,8 @@ export class MarketService {
     try {
     } catch (e) {}
   }
+  async delete() {
+    try {
+    } catch (e) {}
+  }
 }
