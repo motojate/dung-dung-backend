@@ -10,74 +10,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Grade {
-  SSR
-  S
-  A
-  B
-  C
-}
-
 model User {
-  id         Int         @id @default(autoincrement())
-  userId     String      @unique
-  password   String
-  birthday   DateTime
-  schedules  Schedule[]
-  Characters Character[]
+  userSeq   String                @id @map("user_seq")
+  schedules UserScheduleMapping[]
 
   @@map(name: "MB_USER")
 }
 
-model Calendar {
-  id        Int        @id @default(autoincrement())
-  month     String
-  schedules Schedule[]
+model UserScheduleMapping {
+  id         Int      @id @default(autoincrement())
+  userSeq    String   @map("user_seq")
+  scheduleId Int      @map("schedule_id")
+  user       User     @relation(fields: [userSeq], references: [userSeq])
+  schedule   Schedule @relation(fields: [scheduleId], references: [id])
 
-  @@map(name: "MB_CALENDAR")
+  @@map(name: "MB_USER_SCHEDULE_MAPPING")
 }
 
 model Schedule {
-  id         Int      @id @default(autoincrement())
-  calendar   Calendar @relation(fields: [calenderId], references: [id])
-  calenderId Int
-  users      User[]
-  title      String
-  day        DateTime
-  startTime  DateTime
-  endTime    DateTime
-  isSpecial  Boolean  @default(false)
+  id        Int                   @id @default(autoincrement())
+  title     String
+  startTime DateTime              @map("start_time")
+  endTime   DateTime              @map("end_time")
+  isSpecial Boolean               @default(false) @map("is_special")
+  users     UserScheduleMapping[]
 
   @@map(name: "MB_SCHEDULE")
-}
-
-model Character {
-  id     Int    @id @default(autoincrement())
-  users  User[]
-  grade  Grade
-  name   String
-  season String
-
-  @@unique(fields: [name, season], name: "seasonName")
-  @@map(name: "GM_CHARACTER")
-}
-
-model Code {
-  id       Int    @id @default(autoincrement())
-  name     String
-  parentId Int?   @map("parent_id")
-  parent   Code?  @relation(name: "CodeParentAndChildren", fields: [parentId], references: [id])
-  children Code[] @relation(name: "CodeParentAndChildren")
-
-  @@map(name: "GM_CODE")
-}
-
-model Market {
-  id          Int    @id @default(autoincrement())
-  name        String
-  type        String
-  nameAddress String @map("name_address")
-  address     String
-
-  @@map(name: "GM_MARKET")
 }
