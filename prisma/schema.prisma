@@ -13,8 +13,18 @@ datasource db {
 model User {
   userSeq   String                @id @map("user_seq")
   schedules UserScheduleMapping[]
+  todos     Todo[]
 
   @@map(name: "MB_USER")
+}
+
+model Todo {
+  id        Int      @id @default(autoincrement())
+  title     String
+  category  String
+  userSeq   String   @map("user_seq")
+  user      User     @relation(fields: [userSeq], references: [userSeq])
+  startTime DateTime @map("start_time")
 }
 
 model UserScheduleMapping {
