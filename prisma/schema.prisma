@@ -47,3 +47,18 @@ model Schedule {
 
   @@map(name: "MB_SCHEDULE")
 }
+
+model Question {
+  id      Int      @id @default(autoincrement())
+  text    String
+  answer  String   @db.Char(1)
+  options Option[]
+}
+
+model Option {
+  id         Int       @id @default(autoincrement())
+  text       String
+  label      String    @db.Char(1)
+  questionId Int?      @map("question_id")
+  question   Question? @relation(fields: [questionId], references: [id])
+}
