@@ -49,16 +49,24 @@ model Schedule {
 }
 
 model Question {
-  id      Int      @id @default(autoincrement())
-  text    String
-  answer  String   @db.Char(1)
-  options Option[]
+  id           Int              @id @default(autoincrement())
+  text         String
+  answer       String           @db.Char(1)
+  categoryCode String           @map("category_code")
+  category     QuestionCategory @relation(fields: [categoryCode], references: [code])
+  options      Option[]
 }
 
 model Option {
-  id         Int       @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   text       String
-  label      String    @db.Char(1)
-  questionId Int?      @map("question_id")
-  question   Question? @relation(fields: [questionId], references: [id])
+  label      String   @db.Char(1)
+  questionId Int      @map("question_id")
+  question   Question @relation(fields: [questionId], references: [id])
+}
+
+model QuestionCategory {
+  code      String     @id @unique
+  name      String
+  questions Question[]
 }
