@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query } from '@nestjs/common';
 import { CreateQuestionDto } from './dtos/create-question.dto';
 import { QuestionService } from './question.service';
 
@@ -6,10 +6,10 @@ import { QuestionService } from './question.service';
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
 
-  @Get('category')
-  async getQuestionCategories() {
-    const categories = this.questionService.getQuestionCategories();
-    return categories;
+  @Get()
+  async getQuestions(@Query('categoryCode') categoryCode: string) {
+    const questions = await this.questionService.getQuestions(categoryCode);
+    return questions;
   }
 
   @Post()
@@ -17,5 +17,11 @@ export class QuestionController {
   async createQuestion(@Body() createQuestionDto: CreateQuestionDto) {
     await this.questionService.createQuestion(createQuestionDto);
     return 1;
+  }
+
+  @Get('category')
+  async getQuestionCategories() {
+    const categories = this.questionService.getQuestionCategories();
+    return categories;
   }
 }

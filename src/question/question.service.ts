@@ -6,6 +6,24 @@ import { CreateQuestionDto } from './dtos/create-question.dto';
 export class QuestionService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async getQuestions(categoryCode: string) {
+    return this.prisma.question.findMany({
+      where: {
+        categoryCode
+      },
+      select: {
+        answer: true,
+        text: true,
+        options: {
+          select: {
+            text: true,
+            label: true
+          }
+        }
+      }
+    });
+  }
+
   async getQuestionCategories() {
     return this.prisma.questionCategory.findMany({
       select: {
