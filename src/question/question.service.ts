@@ -13,7 +13,7 @@ export class QuestionService {
         categoryCode
       },
       select: {
-        answer: true,
+        id: true,
         text: true,
         options: {
           select: {
