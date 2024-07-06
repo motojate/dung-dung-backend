@@ -19,4 +19,16 @@ export class TodoService {
       }
     });
   }
+
+  async getTodayTodo(userSeq: string) {
+    const now = new Date();
+    return this.prisma.todo.findMany({
+      where: {
+        userSeq: userSeq,
+        startTime: {
+          lte: now
+        }
+      }
+    });
+  }
 }
