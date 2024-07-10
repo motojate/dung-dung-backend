@@ -12,6 +12,8 @@ datasource db {
 
 model User {
   userSeq   String                @id @map("user_seq")
+  createdAt DateTime              @default(now()) @map("created_at")
+  updatedAt DateTime              @updatedAt @map("updated_at")
   schedules UserScheduleMapping[]
   todos     Todo[]
 
@@ -23,14 +25,18 @@ model Todo {
   title     String
   category  String
   userSeq   String   @map("user_seq")
-  user      User     @relation(fields: [userSeq], references: [userSeq])
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
   startTime DateTime @map("start_time")
+  user      User     @relation(fields: [userSeq], references: [userSeq])
 }
 
 model UserScheduleMapping {
   id         Int      @id @default(autoincrement())
   userSeq    String   @map("user_seq")
   scheduleId Int      @map("schedule_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
   user       User     @relation(fields: [userSeq], references: [userSeq])
   schedule   Schedule @relation(fields: [scheduleId], references: [id])
 
@@ -43,6 +49,8 @@ model Schedule {
   startTime DateTime              @map("start_time")
   endTime   DateTime              @map("end_time")
   isSpecial Boolean               @default(false) @map("is_special")
+  createdAt DateTime              @default(now()) @map("created_at")
+  updatedAt DateTime              @updatedAt @map("updated_at")
   users     UserScheduleMapping[]
 
   @@map(name: "MB_SCHEDULE")
@@ -53,6 +61,8 @@ model Question {
   text         String
   answer       String           @db.Char(1)
   categoryCode String           @map("category_code")
+  createdAt    DateTime         @default(now()) @map("created_at")
+  updatedAt    DateTime         @updatedAt @map("updated_at")
   category     QuestionCategory @relation(fields: [categoryCode], references: [code])
   options      Option[]
 }
@@ -62,11 +72,15 @@ model Option {
   text       String
   label      String   @db.Char(1)
   questionId Int      @map("question_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
   question   Question @relation(fields: [questionId], references: [id])
 }
 
 model QuestionCategory {
   code      String     @id @unique
   name      String
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
   questions Question[]
 }
