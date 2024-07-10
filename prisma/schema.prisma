@@ -12,6 +12,7 @@ datasource db {
 
 model User {
   userSeq   String                @id @map("user_seq")
+  name      String?
   createdAt DateTime              @default(now()) @map("created_at")
   updatedAt DateTime              @updatedAt @map("updated_at")
   schedules UserScheduleMapping[]
