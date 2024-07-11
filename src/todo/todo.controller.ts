@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { CreateTodoDto } from './dtos/create-todo.dto';
 import { TodoService } from './todo.service';
 
@@ -11,5 +11,12 @@ export class TodoController {
 
     await this.todoService.createTodo(userSeq, createTodoDto);
     res.send();
+  }
+
+  @Get()
+  async getTodo() {
+    const userSeq = 'adb2ef0c-5468-41d1-9128-032c62a0358a'; // TODO: 토큰 검사 필요함
+    const result = await this.todoService.getTodayTodo(userSeq);
+    return result;
   }
 }
