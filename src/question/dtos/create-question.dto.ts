@@ -15,8 +15,8 @@ export class CreateQuestionDto {
   @IsNotEmpty({ message: '카테고리 정보는 필수 값입니다.' })
   readonly categoryCode: string;
 
-  @ValidateNested({ each: true }) // 각 배열 요소에 대해 ValidateNested 적용
-  @ArrayMinSize(1, { message: '적어도 하나의 옵션은 제공되어야 합니다.' }) // 옵션 배열이 최소 한 개 이상 있어야 함
-  @Type(() => CreateOptionDto) // 배열의 요소들이 CreateOptionDto 타입으로 변환되어야 함
+  @ValidateNested({ each: true })
+  @ArrayMinSize(1, { message: '적어도 하나의 옵션은 제공되어야 합니다.' })
+  @Type(() => CreateOptionDto)
   readonly options: CreateOptionDto[];
 }
