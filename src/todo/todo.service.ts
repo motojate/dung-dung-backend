@@ -31,4 +31,12 @@ export class TodoService {
       }
     });
   }
+
+  async deleteTodo(id: number) {
+    await this.prisma.todo.delete({
+      where: {
+        id
+      }
+    });
+  }
 }
