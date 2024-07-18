@@ -40,7 +40,11 @@ export class TodoService {
     });
   }
 
-  async updateTodo() {
+  async updateTodo(id: number) {
+    await this.prisma.todo.update({
+      where: { id },
+      data: {}
+    });
     //TODO
   }
 }
