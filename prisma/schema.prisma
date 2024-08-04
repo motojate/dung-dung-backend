@@ -85,3 +85,7 @@ model QuestionCategory {
   updatedAt DateTime   @updatedAt @map("updated_at")
   questions Question[]
 }
+
+model JobApplication {
+  id Int @id @default(autoincrement())
+}
