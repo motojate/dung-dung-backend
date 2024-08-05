@@ -11,12 +11,13 @@ datasource db {
 }
 
 model User {
-  userSeq   String                @id @map("user_seq")
-  name      String?
-  createdAt DateTime              @default(now()) @map("created_at")
-  updatedAt DateTime              @updatedAt @map("updated_at")
-  schedules UserScheduleMapping[]
-  todos     Todo[]
+  userSeq         String                @id @map("user_seq")
+  name            String?
+  createdAt       DateTime              @default(now()) @map("created_at")
+  updatedAt       DateTime              @updatedAt @map("updated_at")
+  schedules       UserScheduleMapping[]
+  todos           Todo[]
+  jobApplications JobApplication[]
 
   @@map(name: "MB_USER")
 }
@@ -91,4 +92,6 @@ model JobApplication {
   companyName     String   @map("company_name")
   applicationDate DateTime @map("application_date")
   decisionDate    DateTime @map("decision_date")
+  userSeq         String   @map("user_seq")
+  User            User     @relation(fields: [userSeq], references: [userSeq], onDelete: Cascade)
 }
