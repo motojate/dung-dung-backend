@@ -93,5 +93,7 @@ model JobApplication {
   applicationDate DateTime @map("application_date")
   decisionDate    DateTime @map("decision_date")
   userSeq         String   @map("user_seq")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
   User            User     @relation(fields: [userSeq], references: [userSeq], onDelete: Cascade)
 }
