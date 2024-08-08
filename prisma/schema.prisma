@@ -10,6 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum PreTestType {
+  HOMEWORK
+  TEST
+  NONE
+}
+
 model User {
   userSeq         String                @id @map("user_seq")
   name            String?
@@ -88,13 +94,14 @@ model QuestionCategory {
 }
 
 model JobApplication {
-  id              Int      @id @default(autoincrement())
-  companyName     String   @map("company_name")
-  applicationDate DateTime @map("application_date")
-  decisionDate    DateTime @map("decision_date")
-  userSeq         String   @map("user_seq")
+  id              Int         @id @default(autoincrement())
+  companyName     String      @map("company_name")
+  applicationDate DateTime    @map("application_date")
+  decisionDate    DateTime    @map("decision_date")
+  userSeq         String      @map("user_seq")
   url             String
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
-  User            User     @relation(fields: [userSeq], references: [userSeq], onDelete: Cascade)
+  preTest         PreTestType @map("pre_test")
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+  User            User        @relation(fields: [userSeq], references: [userSeq], onDelete: Cascade)
 }
