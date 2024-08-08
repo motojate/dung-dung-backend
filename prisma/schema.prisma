@@ -101,6 +101,7 @@ model JobApplication {
   userSeq         String      @map("user_seq")
   url             String
   preTest         PreTestType @map("pre_test")
+  address         String
   createdAt       DateTime    @default(now()) @map("created_at")
   updatedAt       DateTime    @updatedAt @map("updated_at")
   User            User        @relation(fields: [userSeq], references: [userSeq], onDelete: Cascade)
