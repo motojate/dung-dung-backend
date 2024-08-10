@@ -67,7 +67,7 @@ model Schedule {
 model Question {
   id           Int              @id @default(autoincrement())
   text         String
-  answer       String           @db.Char(1)
+  answers      QuestionAnswer[]
   categoryCode String           @map("category_code")
   createdAt    DateTime         @default(now()) @map("created_at")
   updatedAt    DateTime         @updatedAt @map("updated_at")
@@ -76,10 +76,12 @@ model Question {
 }
 
 model QuestionAnswer {
-  id        Int      @id @default(autoincrement())
-  answer    String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id         Int      @id @default(autoincrement())
+  questionId Int      @map("question_id")
+  answer     String
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  question   Question @relation(fields: [questionId], references: [id])
 }
 
 model Option {
