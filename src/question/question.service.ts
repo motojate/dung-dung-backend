@@ -48,10 +48,12 @@ export class QuestionService {
 
   async checkAnswerQuestion(dto: CheckAnswerQuestionDto & { questionId: number }) {
     const { answer: userAnswer, questionId } = dto;
-    const { answer: questionAnswer } = await this.prisma.question.findUnique({ where: { id: questionId }, select: { answer: true } });
+    const { answers: questionAnswers } = await this.prisma.question.findUnique({ where: { id: questionId }, include: { answers: true } });
+    const isAnswer = questionAnswers.some((v) => v.answer === userAnswer);
+
     return {
-      isAnswer: questionAnswer === userAnswer,
-      answer: questionAnswer
+      isAnswer: isAnswer,
+      answer: questionAnswers
     };
   }
 }

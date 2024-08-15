@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  database:
+    image: mysql:8
+    container_name: nestjs_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_DATABASE: dung_dung_server
+      MYSQL_USER: root
+      MYSQL_PASSWORD: your_password
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - nestjs_network
+
+  app:
+    image: nestjs-app-image # Dockerfile로부터 빌드된 이미지 이름
+    container_name: nestjs_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: mysql://root:password@localhost:3306/dung_dung_server_?connection_limit=3
+    depends_on:
+      - database
+    networks:
+      - nestjs_network
+    volumes:
+      - .:/app
+
+volumes:
+  mysql_data:
+
+networks:
+  nestjs_network:
+    driver: bridge
